@@ -4,7 +4,7 @@ import { ArticleCard } from "./ArticleCard";
 import { ArticleContext } from "./ArticleProvider";
 
 export const ArticleList = () => {
-    const { articles, getArticles } = useContext(ArticleContext)
+    const { articles, getArticles, deleteArticles } = useContext(ArticleContext)
     
     const [ filteredArticles, setFiltered ] = useState([])
     
@@ -20,11 +20,13 @@ export const ArticleList = () => {
         setFiltered(sortArticles)
     }, [articles])
 
+
+
     return (
         <>
             <div className="container-fluid">
                 <div className="my-2">
-                    <h2>Articles</h2>
+                    <h2>News</h2>
                     <button className="btn btn-secondary" onClick={() => {history.push("articles/new")}}>New Article</button>
                 </div>
                 <div className="articles row">
