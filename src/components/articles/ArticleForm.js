@@ -53,24 +53,29 @@ export const ArticleForm = () => {
 
     return (
         <>
-            <form action="" className="articleForm"></form>
-            <h2 className="articleForm__title">New Article</h2>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="article_title">Article Title</label>
-                    <input name="title" type="text" onChange={handleArticleFormChange} className="form-control" id="title" placeholder="Title" />
+            <div className="container-fluid">
+                <div className="mt-2">
+                    <h2 className="articleForm__title">New Article</h2>
                 </div>
-            </fieldset>
-            <fieldset>
-                <label htmlFor="article_summary">Article Synopsis</label>
-                <textarea name="article_summary" onChange={handleArticleFormChange} id="description" cols="30" rows="4"></textarea>
-            </fieldset>
-            <fieldset>
-                <label htmlFor="article_url">Article URL</label>
-                <input name="article_url" type="url" onChange={handleArticleFormChange} id="url"/>
-            </fieldset>
-            <button className="btn btn-primary" onClick={handleClickSaveArticle}>Save Article</button>
-            
+                <form action="" className="articleForm p-2">
+                    <fieldset className="col-6">
+                        <div className="form-group">
+                            <label htmlFor="article_title" className="form-label">Article Title</label>
+                            <input name="title" type="text" onChange={handleArticleFormChange} className="form-control" id="title" placeholder="Title" />
+                        </div>
+                    </fieldset>
+                    <fieldset className="col-6">
+                        <label htmlFor="article_url" className="form-label">Article URL</label>
+                        <input name="article_url" type="url" onChange={handleArticleFormChange} className="form-control" id="url" placeholder="http://www.example.com"/>
+                    </fieldset>
+                    <fieldset className="col-6">
+                        <label htmlFor="article_summary" className="form-label">Article Synopsis</label>
+                        <textarea name="article_summary" onChange={handleArticleFormChange} className="form-control" id="description" cols="30" rows="4" placeholder="Brief summary..."></textarea>
+                        <button className="btn btn-primary mt-4" onClick={handleClickSaveArticle}>Save Article</button>
+                    </fieldset>
+                </form>
+                
+            </div>
         </>
         
     )

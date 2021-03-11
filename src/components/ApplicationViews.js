@@ -39,7 +39,6 @@ export default class ApplicationViews extends Component {
               return (
                 <React.Fragment>
                   <ArticleForm />
-                  <ArticleList />
                 </React.Fragment>
               )
             }}

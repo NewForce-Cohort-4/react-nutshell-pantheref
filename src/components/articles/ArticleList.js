@@ -22,15 +22,18 @@ export const ArticleList = () => {
 
     return (
         <>
-            <h2>Articles</h2>
-            <button className="btn btn-secondary" onClick={() => {history.push("articles/new")}}>New Article</button>
-
-            <div className="articles">
-                {
-                    filteredArticles.map(article => {
-                        return <ArticleCard key={article.id} article={article} />
-                    })
-                }
+            <div className="container-fluid">
+                <div className="my-2">
+                    <h2>Articles</h2>
+                    <button className="btn btn-secondary" onClick={() => {history.push("articles/new")}}>New Article</button>
+                </div>
+                <div className="articles row">
+                    {
+                        filteredArticles.map(article => {
+                            return <ArticleCard key={article.id} article={article} />
+                        })
+                    }
+                </div>
             </div>
         </>
     )

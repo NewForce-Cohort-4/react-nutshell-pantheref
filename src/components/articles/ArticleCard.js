@@ -4,10 +4,14 @@ import "./Article.css"
 
 export const ArticleCard = ({ article }) => {
     return (
-        <section className="article">
-            <h3 className="article__title">{article.title}</h3>
-            <div className="article__summary">{article.summary}</div>
-            <div className="article__url">{article.url}</div>
-        </section>   
+        <section className="col-md-6 col-sm-4">
+            <div className="card m-2 article">
+                <div className="card-body">
+                    <h3 className="card-title article__title"><a href={article.url}>{article.title}</a></h3>
+                    <div className="article__summary"><b>Synopsis:</b> {article.description}</div>
+                    <div className="article__url"><b>url:</b> {article.url}</div>
+                </div>
+            </div>
+        </section>
     )
 };
