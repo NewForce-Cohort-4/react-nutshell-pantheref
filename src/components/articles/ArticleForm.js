@@ -4,35 +4,27 @@ import { useHistory } from "react-router-dom";
 import "./Article.css"
 
 export const ArticleForm = () => {
-
+    // Import addArticles from data provider
     const { addArticles } = useContext(ArticleContext)
 
+    // Declare variable to call useHistory
     const history = useHistory()
 
+    // Declare article object and function stored in state
     const [ article , setArticle ] = useState({
         userId: parseInt(localStorage.getItem("nutshell_user")),
         title: "",
         description: "",
-        url: "",
-        timestamp: Date.now()
+        url: ""
     })
 
 
-    // useEffect(() => {
-    //     getArticles()
-    // }, [])
-
+    // Function is called on change of selected form value
+    // which matches the article key stored in state
+    // Form value is then written to state
     const handleArticleFormChange = (event) => {
-        
 
         const newArticle = {...article}
-
-        // const consoleObject = {
-        //     id: event.target.id,
-        //     value: event.target.value
-        // }
-        // console.log(consoleObject);
-        
 
         newArticle[event.target.id] = event.target.value
 
@@ -40,15 +32,33 @@ export const ArticleForm = () => {
 
     }
 
+    // Function is called on form submit
+    // and passes the article object from state
+    // to addArticles function and sends the object
+    // to the database.
+
     const handleClickSaveArticle = (event) => {
+        
+        // const eObject = {
+        //     event: event,
+        //     target: event.target,
+        //     iD: event.id,
+        //     eventValue: event.value,
+        //     targetValue: event.target.value,
+        //     target1: event.target[1],
+        //     titleValue: event.target[1].value
+        // }
+        // console.log(eObject);
+        
         event.preventDefault()
 
-        // console.log(article);
+            article.timestamp = Date.now()
+            addArticles(article)
+            .then(() => {
+                history.push("/articles")
+            })
+
         
-        addArticles(article)
-        .then(() => {
-            history.push("/articles")
-        })
     };
 
     return (
@@ -57,21 +67,21 @@ export const ArticleForm = () => {
                 <div className="mt-2">
                     <h2 className="articleForm__title">New Article</h2>
                 </div>
-                <form action="" className="articleForm p-2">
+                <form onSubmit={handleClickSaveArticle} className="articleForm p-2">
                     <fieldset className="col-6">
                         <div className="form-group">
                             <label htmlFor="article_title" className="form-label">Article Title</label>
-                            <input name="title" type="text" onChange={handleArticleFormChange} className="form-control" id="title" placeholder="Title" />
+                            <input name="title" type="text" onChange={handleArticleFormChange} className="form-control" id="title" placeholder="Title" required autoFocus/>
                         </div>
                     </fieldset>
                     <fieldset className="col-6">
                         <label htmlFor="article_url" className="form-label">Article URL</label>
-                        <input name="article_url" type="url" onChange={handleArticleFormChange} className="form-control" id="url" placeholder="http://www.example.com"/>
+                        <input name="article_url" type="url" onChange={handleArticleFormChange} className="form-control" id="url" placeholder="http://www.example.com" required/>
                     </fieldset>
                     <fieldset className="col-6">
                         <label htmlFor="article_summary" className="form-label">Article Synopsis</label>
-                        <textarea name="article_summary" onChange={handleArticleFormChange} className="form-control" id="description" cols="30" rows="4" placeholder="Brief summary..."></textarea>
-                        <button className="btn btn-primary mt-4" onClick={handleClickSaveArticle}>Save Article</button>
+                        <textarea name="article_summary" onChange={handleArticleFormChange} className="form-control" id="description" cols="30" rows="4" placeholder="Brief summary..." required></textarea>
+                        <button type="submit "className="btn btn-primary mt-4">Save Article</button>
                     </fieldset>
                 </form>
                 
