@@ -19,3 +19,14 @@
 .article a {
     color: var(--indigo-dye)
 }
+
+.noarticle--span {
+    background-color: var(--indigo-dye);
+    color: white;
+    font-weight: bold;
+    font-size: 2rem;
+    height: 20vh;
+    width: 60vw;
+    border-radius: .6rem;
+
+}

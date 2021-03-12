@@ -20,7 +20,19 @@ export const ArticleList = () => {
         setFiltered(sortArticles)
     }, [articles])
 
-
+    // const articlePrinter = () => {
+    //     let articleSpan = ""
+    //     if (filteredArticles.length < 0) {
+    //         debugger
+    //         return <div className="container-sm">No saved articles</div>
+    //     } else {
+    //         filteredArticles.map(article => {
+    //             debugger
+    //             articleSpan += <ArticleCard key={article.id} article={article} />
+    //         })
+    //         return articleSpan
+    //     }
+    // }; 
 
     return (
         <>
@@ -30,11 +42,14 @@ export const ArticleList = () => {
                     <button className="btn btn-secondary" onClick={() => {history.push("articles/new")}}>New Article</button>
                 </div>
                 <div className="articles row">
-                    {
-                        filteredArticles.map(article => {
+                    { filteredArticles.length === 0 &&
+                        <div className="container-sm noarticle--span d-flex align-items-center justify-content-center">No saved articles</div>
+                    } 
+                    
+                    {filteredArticles.map(article => {
                             return <ArticleCard key={article.id} article={article} />
                         })
-                    }
+                    }               
                 </div>
             </div>
         </>
