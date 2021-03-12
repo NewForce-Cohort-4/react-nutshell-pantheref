@@ -31,18 +31,23 @@ export const TaskProvider = (props) => {
         .then(response => response.json())
         .then(getTasks)
     }
+    
+    const updateTask = (id) => {
+        return fetch(`http://localhost:8088/tasks/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({completed: true})
+        })
+        .then(res=>res.json())
+    }
 
     const getTaskById = (id) => {
         return fetch(`http://localhost:8088/tasks/${id}`)
         .then(res=>res.json())
     }
 
-    const deleteTask = taskId => {
-        return fetch(`http://localhost:8088/tasks/${taskId}`, {
-            method: "DELETE"
-        })
-        .then(getTasks)
-    }
 
     const editTask = task => {
         return fetch(`http://localhost:8088/tasks/${task.id}`, {
@@ -60,7 +65,7 @@ export const TaskProvider = (props) => {
         //what we are actually exporting
         <TaskContext.Provider value={{
             //the state and functions other components can use
-            tasks, getTasks, addTask, getTaskById, deleteTask, editTask
+            tasks, getTasks, addTask, getTaskById, updateTask, editTask 
 
         }}>
             {props.children}

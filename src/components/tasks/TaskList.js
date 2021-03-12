@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react"
-import {useHistory} from "react-router-dom"
+import {useHistory } from "react-router-dom"
 import {TaskContext} from "./TaskProvider"
 import {TaskCard} from "./Task"
 import "./Task.css"
@@ -29,12 +29,16 @@ export const TaskList = () => {
         <div className="tasks">
             {console.log("TaskList: Render", tasks)}
             {
-                tasks.map(currentTask => {
+                tasks.filter(task => {
+                    return !task.completed
+                }).map(currentTask => {
                     
                     //invoke the function TaskCard
                     //key and task are properties  of an object that get passed in as an argument
                     return <TaskCard  key={currentTask.id} task={currentTask}/>
                 })
+
+                
             }
         </div>
         </>

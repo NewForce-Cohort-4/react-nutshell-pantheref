@@ -3,8 +3,9 @@ import {TaskContext} from "../tasks/TaskProvider"
 import "./Task.css"
 import {useHistory} from 'react-router-dom'
 
+// builds a form to allow the user to create an object for tasks, saves the task to the database
 export const TaskForm = () => {
-    const {addTask, editTask, getTasks} = useContext(TaskContext)
+    const {addTask, updateTask, getTaskById, getTasks} = useContext(TaskContext)
 
     //define the initial state of the from inputs with useState()
     const[task, setTask] = useState({
@@ -12,10 +13,20 @@ export const TaskForm = () => {
        dueDate: "0000-00-00",
        userId: +localStorage.getItem("nutshell_user")
     })
-
+    
     const history= useHistory()
 
+    useEffect(() => {
+        getTasks()
+    }, [])
+
+    //when field changes, update state
+    //this causes a re-render and updates the view
+    //this is a controlled component
     const handleControlledInputChange = (event) => {
+        //when changing a state objet or array
+        //always create a copy, make changes, then set state
+        //{}make it an object '...' is spread syntax, we have to use this bc we're copying an object(we use .slice with an array)
         const newTask = {...task}
         newTask[event.target.id] = event.target.value
         //update state
@@ -30,14 +41,6 @@ export const TaskForm = () => {
         .then(() => history.push("/tasks"))
     }
 
-    const handleCheckBox = (task) => {
-        editTask({
-            id: task.id,
-            task: task.task,
-            dueDate: task.dueDate,
-            completed: true, 
-        }).then(getTasks)
-    }
     
 
 

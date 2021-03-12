@@ -1,17 +1,37 @@
-import React from "react"
+import React, { useContext } from "react"
+import {TaskContext} from "./TaskProvider"
 import "./Task.css"
 
-export const TaskCard = ({task}) => (
-    <section className="task">
-        <div>
-            <input type="checkbox"/>
-        </div>
-        <div className="task_task">Task: {task.task}</div>
-        <div className="task_dueDate">Due Date: {task.dueDate}</div>
+export const TaskCard = ({task}) => {
+    const {updateTask, getTasks} = useContext(TaskContext)
+    
 
-    </section>
-)
+    const handleCheckBox = (idOfCurrentTask) => {
+        console.log("clickbox")
+
+    updateTask(idOfCurrentTask)
+    .then(getTasks)
+    }
+
+    
+    
+        return (
+            <section className="task">
+                <div>
+                    <input 
+                    type="checkbox" 
+                    id={task.id} 
+                    onClick={()=>handleCheckBox(task.id)}/>
+                </div>
+                <div className="task_task">Task: {task.task}</div>
+                <div className="task_dueDate">Due Date: {task.dueDate}</div>
+    
+            </section>
+            
+        )
+}
+    
+ 
 
 
 
-{/* <div className="task_checkbox">{task.id}</div>  */}
