@@ -6,7 +6,7 @@ export const MessageProvider = (props) => {
 const [messages, setMessages] = useState([])
 
     const getMessages = () => {
-    return fetch ("http://localhost:8088/messages")
+    return fetch (`http://localhost:8088/messages`)
     .then(res => res.json())
     .then(setMessages)
     }
@@ -19,8 +19,9 @@ const [messages, setMessages] = useState([])
           "Content-Type": "application/json",
         },
         body: JSON.stringify(messageObj),
-      }).then((response) => response.json());
- };
+      }).then((response) => response.json())
+      .then(getMessages);
+ }
 
  return (
      <MessageContext.Provider value={{
