@@ -8,8 +8,7 @@ export const TaskList = () => {
     //this state changes when getTask is rendered below
     const {tasks, getTasks} = useContext(TaskContext)
     const history = useHistory()
-    const [filteredTask, setFiltered] = useState([])
-
+    
     //reaches out to the world and gets all the data from the API call for the tasks
     useEffect(() => {
         console.log("TaskList: useEffect- getTasks")

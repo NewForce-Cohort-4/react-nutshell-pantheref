@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react"
 import {TaskContext} from "../tasks/TaskProvider"
 import "./Task.css"
-import {useHistory} from 'react-router-dom'
+import {useHistory, useParams} from 'react-router-dom'
 
 // builds a form to allow the user to create an object for tasks, saves the task to the database
 export const TaskForm = () => {
@@ -9,11 +9,14 @@ export const TaskForm = () => {
 
     //define the initial state of the from inputs with useState()
     const[task, setTask] = useState({
-       task: "",
-       dueDate: "0000-00-00",
-       userId: +localStorage.getItem("nutshell_user")
+        task: "",
+        dueDate: "yyyy-MM-DD",
+        userId: +localStorage.getItem("nutshell_user")
     })
     
+    //wait for the data before the button is active
+    const [isLoading, setIsLoading] = useState (true)
+    const {taskId} = useParams()
     const history= useHistory()
 
     useEffect(() => {
@@ -72,6 +75,22 @@ export const TaskForm = () => {
 
 
 }       
+
+
+
+// useEffect(() => {
+//     getTasks().then(() => {
+//         if(taskId){
+//             getTaskById(taskId)
+//             .then(task => {
+//                 setTask(task)
+//                 setIsLoading(false)
+//             })
+//         } else {
+//             setIsLoading(false)
+//         }
+//     })
+// }, [])
 
 
 
