@@ -58,6 +58,8 @@ const handleClickSaveMessage = (event) => {
             userId: localStorage.getItem("nutshell_user")
         }).then(() => {
           fieldRef.current.scrollIntoView()
+          //clearing the message after one is sent
+          setMessage({message: ""})
         })
         }
     }
