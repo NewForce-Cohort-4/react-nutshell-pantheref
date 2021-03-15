@@ -2,6 +2,13 @@ import { Route } from "react-router-dom";
 import React, { Component } from "react";
 import { MessageProvider } from "./messages/MessageProvider";
 import { MessageList } from "./messages/MessageList"
+import {TaskProvider} from "./tasks/TaskProvider"
+import {TaskList} from "./tasks/TaskList"
+import {TaskForm} from "./tasks/TaskForm"
+import { ArticleProvider } from "./articles/ArticleProvider";
+import { ArticleList } from "./articles/ArticleList";
+import { ArticleForm } from "./articles/ArticleForm";
+
 
 export default class ApplicationViews extends Component {
 
@@ -26,6 +33,28 @@ export default class ApplicationViews extends Component {
           }}
         />
 
+        <ArticleProvider>
+        <Route
+            exact path="/articles" render={props => {
+              return (
+                <ArticleList />
+              )
+            }}
+          >
+          </Route>
+          <Route
+            exact path="/articles/new" render={props => {
+              return (
+                <React.Fragment>
+                  <ArticleForm />
+                </React.Fragment>
+              )
+            }}
+          >
+          </Route>
+        </ArticleProvider>
+
+
         <Route
           path="/friends"
           render={(props) => {
@@ -44,14 +73,22 @@ export default class ApplicationViews extends Component {
           />
         </MessageProvider>
 
+        <TaskProvider>
         <Route
-          path="/tasks"
-          render={(props) => {
-            return null;
+          exact path="/tasks" render={props => {
+            return <TaskList />
             // Remove null and return the component which will show the user's tasks
           }}
-        />
+        /> 
+        <Route
+          path="/tasks/create" render={props => {
+            return <TaskForm />
+            // Remove null and return the component which will show the user's tasks
+          }}
+        /> 
+        </TaskProvider>
 
+        
         <Route
           path="/events"
           render={(props) => {

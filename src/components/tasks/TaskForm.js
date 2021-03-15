@@ -1,0 +1,103 @@
+import React, {useContext, useEffect, useState} from "react"
+import {TaskContext} from "../tasks/TaskProvider"
+import "./Task.css"
+import {useHistory, useParams} from 'react-router-dom'
+
+// builds a form to allow the user to create an object for tasks, saves the task to the database
+export const TaskForm = () => {
+    const {addTask, updateTask, getTaskById, getTasks} = useContext(TaskContext)
+
+    //define the initial state of the from inputs with useState()
+    const[task, setTask] = useState({
+        task: "",
+        dueDate: "yyyy-MM-DD",
+        userId: +localStorage.getItem("nutshell_user")
+    })
+    
+    //wait for the data before the button is active
+    const [isLoading, setIsLoading] = useState (true)
+    const {taskId} = useParams()
+    const history= useHistory()
+
+    useEffect(() => {
+        getTasks()
+    }, [])
+
+    //when field changes, update state
+    //this causes a re-render and updates the view
+    //this is a controlled component
+    const handleControlledInputChange = (event) => {
+        //when changing a state objet or array
+        //always create a copy, make changes, then set state
+        //{}make it an object '...' is spread syntax, we have to use this bc we're copying an object(we use .slice with an array)
+        const newTask = {...task}
+        newTask[event.target.id] = event.target.value
+        //update state
+        setTask(newTask)
+    }
+
+    const handleClickSaveTask = (event) => {
+        console.log(task)
+        if(task.task === "") {
+            window.alert("Please enter a message")
+        } else {
+
+        }
+       //prevents the browser from submitting the form
+        event.preventDefault()
+        task.completed = false
+        addTask(task)
+        .then(() => history.push("/tasks"))
+    }
+
+    
+
+
+    return (
+        <>
+        <form className="taskForm" >
+            <h2 className="taskForm_title">New Task</h2>
+            <fieldset>
+                
+                <label htmlFor="task">Task:</label>
+                  <input type="text" id="task" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Task" value={task.task}/>
+                
+            </fieldset>
+           
+            <fieldset>
+                
+                <label htmlFor="date">Due Date:</label>
+                  <input type="date" id="dueDate" onChange={handleControlledInputChange} required  className="form-control" placeholder="dueDate" value={task.dueDate.toDateString}/>
+                
+            </fieldset>
+            <button className="btn btn-primary"
+            type="submit"
+            onClick={handleClickSaveTask}>
+            Save New Task
+          </button>
+        </form>
+        </>
+    )
+
+
+
+}       
+
+
+
+// useEffect(() => {
+//     getTasks().then(() => {
+//         if(taskId){
+//             getTaskById(taskId)
+//             .then(task => {
+//                 setTask(task)
+//                 setIsLoading(false)
+//             })
+//         } else {
+//             setIsLoading(false)
+//         }
+//     })
+// }, [])
+
+
+
