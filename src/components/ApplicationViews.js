@@ -86,6 +86,12 @@ export default class ApplicationViews extends Component {
             // Remove null and return the component which will show the user's tasks
           }}
         /> 
+        <Route
+          path="/tasks/edit/:taskId(\d+)" render={props => {
+            return <TaskForm />
+            // Remove null and return the component which will show the user's tasks
+          }}
+        /> 
         </TaskProvider>
 
         
