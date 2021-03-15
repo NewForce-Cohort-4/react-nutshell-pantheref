@@ -12,7 +12,6 @@ export const MessageList = () => {
     const [isLoading, setIsLoading] = useState(true)
 
     const { messageId } = useParams()
-    // const history = useHistory()
 
     const fieldRef = useRef(null)  
 
@@ -31,10 +30,12 @@ export const MessageList = () => {
     useEffect(() => {
     console.log("MessageList: useEffect - getMessages")    
     getMessages()
+    //fieldRef will get the messages to scroll to the most recent message when a new message is added 
     fieldRef.current.scrollIntoView()
     },  [])
 
-const handleControlledInputChange = (event) => {
+    //this function controls adding a new message and setting it to the new state
+    const handleControlledInputChange = (event) => {
     //creating a copy of the state object and then set it to state
     const newMessage = { ...message }
     //set the property to the new value with bracket notation
@@ -43,8 +44,11 @@ const handleControlledInputChange = (event) => {
     setMessage(newMessage)
 }
 
-const handleClickSaveMessage = () => {
-    if(parseInt(message.id) === 0) {
+
+//function that creates a conditional to create a new message and another conditional to scroll to the most recent message when a new one is entered 
+const handleClickSaveMessage = (event) => {
+  //if statement is keeping the message input field from sending a message if the message is empty
+    if(message.value === undefined) {
         window.alert("Please enter a message")
     } else {
         addMessages ({
@@ -56,7 +60,6 @@ const handleClickSaveMessage = () => {
         }
     }
 
-// let messageBody = ""
 
 return (
   <>
@@ -68,7 +71,6 @@ return (
           messages.map((messages) => {
             return <MessageCard key={messages.id} message={messages} />;
           })
-          // {messageBody.scrollTop=1000}
         }
         <div className="test" ref={fieldRef}></div>
       </div>
@@ -91,9 +93,10 @@ return (
     <button
       className="btn btn-primary"
       // disabled={isLoading}
+      type="submit"
       onClick={(event) => {
         event.preventDefault(); // Prevent browser from submitting the form and refreshing the page
-        handleClickSaveMessage();
+        handleClickSaveMessage(event);
       }}
     >
       Send Message
