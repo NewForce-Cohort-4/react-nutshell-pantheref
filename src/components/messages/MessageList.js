@@ -50,7 +50,6 @@ const handleClickSaveMessage = (event) => {
   //if statement is keeping the message input field from sending a message if the message is empty
     
   if(message.message === "") {
-      debugger
         window.alert("Please enter a message")
     }
      else {
