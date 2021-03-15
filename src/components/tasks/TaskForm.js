@@ -67,7 +67,7 @@ export const TaskForm = () => {
             <fieldset>
                 
                 <label htmlFor="date">Due Date:</label>
-                  <input type="date" id="dueDate" onChange={handleControlledInputChange} required  className="form-control" placeholder="dueDate" value={task.dueDate}/>
+                  <input type="date" id="dueDate" onChange={handleControlledInputChange} required  className="form-control" placeholder="dueDate" value={task.dueDate.toDateString}/>
                 
             </fieldset>
             <button className="btn btn-primary"
