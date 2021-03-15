@@ -48,9 +48,12 @@ export const MessageList = () => {
 //function that creates a conditional to create a new message and another conditional to scroll to the most recent message when a new one is entered 
 const handleClickSaveMessage = (event) => {
   //if statement is keeping the message input field from sending a message if the message is empty
-    if(message.value === undefined) {
+    
+  if(message.message === "") {
+      debugger
         window.alert("Please enter a message")
-    } else {
+    }
+     else {
         addMessages ({
             message: message.message,
             userId: localStorage.getItem("nutshell_user")
