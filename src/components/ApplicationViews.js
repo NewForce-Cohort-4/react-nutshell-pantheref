@@ -1,5 +1,9 @@
 import { Route } from "react-router-dom";
 import React, { Component } from "react";
+import { ArticleProvider } from "./articles/ArticleProvider";
+import { ArticleList } from "./articles/ArticleList";
+import { ArticleForm } from "./articles/ArticleForm";
+import react from "react";
 
 export default class ApplicationViews extends Component {
 
@@ -20,6 +24,28 @@ export default class ApplicationViews extends Component {
             // Remove null and return the component which will handle user registration
           }}
         />
+
+        <ArticleProvider>
+        <Route
+            exact path="/articles" render={props => {
+              return (
+                <ArticleList />
+              )
+            }}
+          >
+          </Route>
+          <Route
+            exact path="/articles/new" render={props => {
+              return (
+                <React.Fragment>
+                  <ArticleForm />
+                </React.Fragment>
+              )
+            }}
+          >
+          </Route>
+        </ArticleProvider>
+
 
         <Route
           path="/friends" render={props => {

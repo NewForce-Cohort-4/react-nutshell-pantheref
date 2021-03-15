@@ -1,0 +1,32 @@
+* {
+    /* CSS HSL */
+    --jet: hsla(0, 0%, 21%, 1);
+    --ming: hsla(183, 31%, 34%, 1);
+    --white: hsla(0, 0%, 100%, 1);
+    --gainsboro: hsla(0, 0%, 85%, 1);
+    --indigo-dye: hsla(204, 42%, 27%, 1);
+}
+
+.article {
+    background-color: var(--gainsboro);
+    color: var(--jet)
+}
+
+.article b {
+    color: var(--ming)
+}
+
+.article a {
+    color: var(--indigo-dye)
+}
+
+.noarticle--span {
+    background-color: var(--indigo-dye);
+    color: white;
+    font-weight: bold;
+    font-size: 2rem;
+    height: 20vh;
+    width: 60vw;
+    border-radius: .6rem;
+
+}
