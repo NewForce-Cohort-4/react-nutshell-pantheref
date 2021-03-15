@@ -1,0 +1,10 @@
+.container-fluid {
+    /* height: 60vh; */
+    /* width: auto; */
+}
+
+.message_window{
+    background-color: lightgray;
+    height: 50vh;
+    overflow: scroll;
+}
