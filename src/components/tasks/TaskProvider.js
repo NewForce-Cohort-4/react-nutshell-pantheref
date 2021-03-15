@@ -57,6 +57,7 @@ export const TaskProvider = (props) => {
             },
             body: JSON.stringify(task)
         })
+        .then(res=>res.json())
         .then(getTasks)
     }
 

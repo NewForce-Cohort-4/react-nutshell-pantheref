@@ -5,7 +5,7 @@ import {useHistory, useParams} from 'react-router-dom'
 
 // builds a form to allow the user to create an object for tasks, saves the task to the database
 export const TaskForm = () => {
-    const {addTask, updateTask, getTaskById, getTasks} = useContext(TaskContext)
+    const {addTask, updateTask, editTask, getTaskById, getTasks} = useContext(TaskContext)
 
     //define the initial state of the from inputs with useState()
     const[task, setTask] = useState({
@@ -15,12 +15,22 @@ export const TaskForm = () => {
     })
     
     //wait for the data before the button is active
-    const [isLoading, setIsLoading] = useState (true)
+    const [isLoading, setIsLoading] = useState(true)
     const {taskId} = useParams()
     const history= useHistory()
 
     useEffect(() => {
-        getTasks()
+        getTasks().then(() => {
+            if(taskId){
+                getTaskById(taskId)
+                .then(task => {
+                    setTask(task)
+                    setIsLoading(false)
+                })
+            } else {
+                setIsLoading(false)
+            }
+        })
     }, [])
 
     //when field changes, update state
@@ -37,25 +47,22 @@ export const TaskForm = () => {
     }
 
     const handleClickSaveTask = (event) => {
-if(task.task === "") {
-    window.alert("Please enter a message")
-} else {
-
         if(taskId) {
-            //PUT -update function
-            updateTask({
+            //PUT -edit function
+            editTask({
                 id: task.id,
                 task: task.task,
                 dueDate: task.dueDate,
                 userId: +localStorage.getItem("nutshell_user")
             })
-            .then(() => history.push(`/tasks/form/${task.id}`))
+            .then(() => history.push(`/tasks/edit/${task.id}`))
         } else {
             //POST - add function
             task.completed = false
             addTask(task) 
             .then(() => history.push("/tasks"))
         }
+        
     }
 
     
@@ -73,7 +80,7 @@ if(task.task === "") {
             <fieldset>
                 <div className="form-group">
                 <label htmlFor="date">Due Date:</label>
-                  <input type="date" id="dueDate" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="dueDate" value={task.dueDate}/>
+                  <input type="date" id="dueDate" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="dueDate" value={task.dueDate.toDateString}/>
                 </div>
             </fieldset>
             <button className="btn btn-primary"
@@ -88,51 +95,7 @@ if(task.task === "") {
             :
             <>Add New Task</>
             }
-
-
-
-
-
-
-
-        console.log(task)
-        if(task.task === "") {
-            window.alert("Please enter a message")
-        } else {
-
-        }
-       //prevents the browser from submitting the form
-        event.preventDefault()
-        task.completed = false
-        addTask(task)
-        .then(() => history.push("/tasks"))
-    }
-
-    
-
-
-    return (
-        <>
-        <form className="taskForm" >
-            <h2 className="taskForm_title">New Task</h2>
-            <fieldset>
-                
-                <label htmlFor="task">Task:</label>
-                  <input type="text" id="task" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="Task" value={task.task}/>
-                
-            </fieldset>
-           
-            <fieldset>
-                
-                <label htmlFor="date">Due Date:</label>
-                  <input type="date" id="dueDate" onChange={handleControlledInputChange} required  className="form-control" placeholder="dueDate" value={task.dueDate.toDateString}/>
-                
-            </fieldset>
-            <button className="btn btn-primary"
-            type="submit"
-            onClick={handleClickSaveTask}>
-            Save New Task
-          </button>
+            </button>
         </form>
         </>
     )
