@@ -55,7 +55,7 @@ export const TaskForm = () => {
                 dueDate: task.dueDate,
                 userId: +localStorage.getItem("nutshell_user")
             })
-            .then(() => history.push(`/tasks/edit/${task.id}`))
+            .then(() => history.push(`/tasks`))
         } else {
             //POST - add function
             task.completed = false
@@ -80,7 +80,7 @@ export const TaskForm = () => {
             <fieldset>
                 <div className="form-group">
                 <label htmlFor="date">Due Date:</label>
-                  <input type="date" id="dueDate" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="dueDate" value={task.dueDate.toDateString}/>
+                  <input type="date" id="dueDate" onChange={handleControlledInputChange} required autoFocus className="form-control" placeholder="dueDate" value={task.dueDate}/>
                 </div>
             </fieldset>
             <button className="btn btn-primary"
