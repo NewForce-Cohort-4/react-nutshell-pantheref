@@ -24,3 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 
 database.json
+package-lock.json
