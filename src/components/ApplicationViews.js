@@ -8,6 +8,7 @@ import {TaskForm} from "./tasks/TaskForm"
 import { ArticleProvider } from "./articles/ArticleProvider";
 import { ArticleList } from "./articles/ArticleList";
 import { ArticleForm } from "./articles/ArticleForm";
+import { ArticleCard } from "./articles/ArticleCard";
 
 
 export default class ApplicationViews extends Component {
@@ -37,7 +38,9 @@ export default class ApplicationViews extends Component {
         <Route
             exact path="/articles" render={props => {
               return (
-                <ArticleList />
+                <ArticleList>
+                  <ArticleCard></ArticleCard>
+                </ArticleList>
               )
             }}
           >

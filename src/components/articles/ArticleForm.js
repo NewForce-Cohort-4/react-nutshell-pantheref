@@ -52,11 +52,11 @@ export const ArticleForm = () => {
         
         event.preventDefault()
 
-            article.timestamp = Date.now()
-            addArticles(article)
-            .then(() => {
-                history.push("/articles")
-            })
+        article.timestamp = Date.now()
+        addArticles(article)
+        .then(() => {
+            history.push("/articles")
+        })
 
         
     };

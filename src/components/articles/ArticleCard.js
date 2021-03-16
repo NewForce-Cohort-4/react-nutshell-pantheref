@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { Link, useHistory } from "react-router-dom";
 import { ArticleContext } from "./ArticleProvider";
 import "./Article.css"
@@ -23,6 +23,21 @@ export const ArticleCard = ({ article }) => {
         })
     };
 
+
+    const [ editedArticle , setArticleEdit ] = useState({})
+
+    const handleArticleEdit = () => {
+        console.log(article);
+        
+        setArticleEdit({
+            title: article.title,
+            description: article.description,
+            url: article.url,
+            pendingEdit: article.id
+        })
+        
+      };
+
     const formatTime = timestamp => {
         const adjustedDate = new Intl.DateTimeFormat('en', { dateStyle: 'short', timeStyle: 'medium' }).format(timestamp);
         // console.log(adjustedDate);
@@ -37,7 +52,8 @@ export const ArticleCard = ({ article }) => {
                     <div className="article__time"><b>Date created:</b> {formatTime(article.timestamp)}</div>
                     <div className="article__summary"><b>Synopsis:</b> {article.description}</div>
                     <div className="article__url"><b>url:</b> {article.url}</div>
-                    <button className="btn btn-danger mt-1" onClick={handleDelete}>Delete</button>
+                    <button className="btn btn-dark text-light my-2 mx-1" onClick={handleArticleEdit}>Edit</button>
+                    <button className="btn btn-danger my-2" onClick={handleDelete}>Delete</button>
                 </div>
             </div>
         </section>
