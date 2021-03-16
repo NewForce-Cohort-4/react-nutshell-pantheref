@@ -43,7 +43,8 @@ export const ArticleList = () => {
     // }; 
 
 
-    let returnSpan = ""
+
+    // let returnSpan = ""
 
     return (
         <>
@@ -58,8 +59,8 @@ export const ArticleList = () => {
                         <div className="container-sm noarticle--span d-flex align-items-center justify-content-center">No saved articles</div>
                     } 
                     {/* else, display sorted articles */}
-                    {filteredArticles.map(article => {
-                            return <ArticleCard key={article.id} article={article} />
+                    {filteredArticles.map(singleArticle => {
+                            return <ArticleCard key={singleArticle.id} singleArticle={singleArticle} />
                         })
                     }               
                 </div>

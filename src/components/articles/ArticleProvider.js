@@ -31,6 +31,18 @@ export const ArticleProvider = (props) => {
         .then(getArticles)
     }
 
+    // API call to update selected article
+    const updateArticle = (article) => {
+        return fetch(`http://localhost:8088/articles/${article.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(article)
+        })
+        .then(getArticles)
+    };
+
     // API call to delete selected article by ID
     const deleteArticles = ArticleId => {
         return fetch(`http://localhost:8088/articles/${ArticleId}`, {
@@ -41,7 +53,7 @@ export const ArticleProvider = (props) => {
 
     return (
         <ArticleContext.Provider value={{
-            articles, getArticles, addArticles, deleteArticles
+            articles, getArticles, addArticles, updateArticle, deleteArticles
         }}>
             {props.children}
         </ArticleContext.Provider>

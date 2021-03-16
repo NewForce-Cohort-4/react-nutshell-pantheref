@@ -8,6 +8,7 @@ import {TaskForm} from "./tasks/TaskForm"
 import { ArticleProvider } from "./articles/ArticleProvider";
 import { ArticleList } from "./articles/ArticleList";
 import { ArticleForm } from "./articles/ArticleForm";
+import { ArticleCard } from "./articles/ArticleCard";
 
 
 export default class ApplicationViews extends Component {
@@ -34,24 +35,36 @@ export default class ApplicationViews extends Component {
         />
 
         <ArticleProvider>
-        <Route
-            exact path="/articles" render={props => {
-              return (
-                <ArticleList />
-              )
-            }}
-          >
-          </Route>
-          <Route
-            exact path="/articles/new" render={props => {
-              return (
-                <React.Fragment>
-                  <ArticleForm />
-                </React.Fragment>
-              )
-            }}
-          >
-          </Route>
+            <Route
+                exact path="/articles" render={props => {
+                  return (
+                    <React.Fragment>
+                      <ArticleList />
+                    </React.Fragment>
+                  )
+                }}
+              >
+            </Route>
+            <ArticleForm>
+              <Route
+                path="/articles" render={props => {
+                  return (
+                    <ArticleCard />
+                  )
+                }}>
+                </Route>
+            </ArticleForm>
+            <Route
+                exact path="/articles/new" render={props => {
+                  return (
+                    <React.Fragment>
+                      <ArticleForm />
+                    </React.Fragment>
+                  )
+                }}
+              >
+            </Route>
+
         </ArticleProvider>
 
 

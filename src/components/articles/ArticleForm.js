@@ -1,9 +1,11 @@
-import React, { useContext , useState } from "react"
+import React, { useContext , useState, createContext } from "react"
 import { ArticleContext } from "./ArticleProvider";
 import { useHistory } from "react-router-dom";
 import "./Article.css"
 
-export const ArticleForm = () => {
+export const FormContext = createContext()
+
+export const ArticleForm = (props) => {
     // Import addArticles from data provider
     const { addArticles } = useContext(ArticleContext)
 
@@ -15,7 +17,8 @@ export const ArticleForm = () => {
         userId: parseInt(localStorage.getItem("nutshell_user")),
         title: "",
         description: "",
-        url: ""
+        url: "",
+        pendingEdit: 0
     })
 
 
@@ -86,6 +89,11 @@ export const ArticleForm = () => {
                 </form>
                 
             </div>
+            <FormContext.Provider value={{
+                article, setArticle
+            }}>
+                {props.children}
+            </FormContext.Provider>
         </>
         
     )
